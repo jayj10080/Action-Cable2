@@ -8,7 +8,9 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
+    # Saves message to the db
     Message.create! content: data['message']
+
     ActionCable.server.broadcast 'room_channel', data['message']
   end
 end
